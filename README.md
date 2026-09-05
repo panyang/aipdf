@@ -34,7 +34,9 @@
 zsh scripts/build.sh
 ```
 
-构建脚本会创建 `.venv`、安装 `requirements.txt`、编译 Swift 程序、生成并本机签名 `.app`。完整的验证环境版本记录在 `requirements.lock.txt`。
+构建脚本会创建 `.venv`、安装 `requirements.lock.txt` 中的锁定版本、编译 Swift 程序、生成并本机签名 `.app`。`requirements.txt` 描述直接依赖的约束范围。打包前会核对第三方许可快照，应用内附带许可与构建源码信息。
+
+许可快照来自当前已验证的 Apple Silicon 环境。不同平台或更换依赖版本后，如果核对失败，运行 `.venv/bin/python scripts/collect_licenses.py`，复核 `licenses/third-party/` 的变化后再构建。
 
 Office / PDF/A 使用 `/Applications/LibreOffice.app`，或本机现有的 Codex LibreOffice 运行环境。也可以通过 `AIPDF_OFFICE` 指定 `soffice` 可执行路径。运行时不会自动安装组件。
 
@@ -60,7 +62,17 @@ Vision、WebKit 及 LibreOffice 需要正常的本机图形/系统服务访问�
 - 裁剪仅改变可视区域。移除敏感内容应使用“永久遮盖”，并检查所有相关页面的结果。
 - 没有云端账户、付费系统、手机二维码传输及外部存储集成。
 
-PyMuPDF/MuPDF 使用 AGPL 或商业许可。分发/商业化前应确定适用的许可方案；详见 [官方许可说明](https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright)。
+## 开源许可与分发
+
+Copyright (C) 2026 AIPDF contributors。
+
+项目自有代码、文档及原创图标按 **GNU Affero General Public License v3.0 only（AGPL-3.0-only）** 提供。你可以按该许可使用、修改和分发，包括商业用途；分发及相应网络服务场景的源码义务以 [LICENSE](LICENSE) 全文为准。项目按原样提供，在法律允许范围内不提供适销性、特定用途等担保。授权范围见 [NOTICE](NOTICE)。
+
+PyMuPDF/MuPDF 等第三方组件保留自己的许可与版权，详见 [第三方声明](THIRD_PARTY_NOTICES.md)。AIPDF 是独立项目，与 iLovePDF 或依赖厂商没有隶属、赞助或背书关系。
+
+目前建议分享源码和自行构建步骤。发布二进制前阅读 [分发说明](docs/分发说明.md)，处理本机路径、依赖打包、对应源码、签名/公证与旧提交邮箱。仅添加许可证不能消除这些风险。
+
+参与开发见 [CONTRIBUTING.md](CONTRIBUTING.md)，AI 协作约定见 [AGENTS.md](AGENTS.md)，安全问题见 [SECURITY.md](SECURITY.md)。`AGENTS.md` 是可选协作指引，不是开源或使用应用的前置条件。
 
 ## 目录
 

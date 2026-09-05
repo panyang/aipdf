@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (C) 2026 AIPDF contributors
 import Foundation
 import AppKit
 import WebKit

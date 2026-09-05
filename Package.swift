@@ -1,4 +1,6 @@
 // swift-tools-version: 5.9
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (C) 2026 AIPDF contributors
 import PackageDescription
 
 let package = Package(

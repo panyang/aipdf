@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 AIPDF contributors
 """Local PDF worker. One JSON request on stdin, one JSON result on stdout.
 
 Local documents stay on this Mac. URL conversion explicitly fetches web content.

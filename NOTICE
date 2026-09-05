@@ -1,0 +1,31 @@
+AIPDF - local PDF toolkit for macOS
+Copyright (C) 2026 AIPDF contributors
+
+Except for files explicitly identified as third-party materials, the original
+source code, documentation and original application icon in this repository
+are licensed under the GNU Affero General Public License, version 3 only
+(SPDX-License-Identifier: AGPL-3.0-only). See LICENSE for the complete terms.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details. Applicable law may limit exclusions of warranty or liability.
+
+Third-party components remain subject to their respective copyright notices
+and license terms. See THIRD_PARTY_NOTICES.md and licenses/third-party/.
+The project license does not relicense third-party components or grant rights
+in third-party trademarks.
+
+AIPDF is an independent project. It is not affiliated with, sponsored by or
+endorsed by iLovePDF, Artifex, Apple, OpenAI or The Document Foundation.
+References to their products identify inspiration, dependencies or platform
+requirements; they do not imply permission to use their trademarks as our own.
+
+Source repository: https://github.com/panyang/aipdf
+Release distributors must provide the corresponding source for the actual
+distributed version in accordance with LICENSE. A repository URL alone is
+not sufficient if the relevant source is private or unavailable to recipients.

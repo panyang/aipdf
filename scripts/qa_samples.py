@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 AIPDF contributors
 """Create synthetic, non-sensitive examples for manual visual acceptance."""
 from pathlib import Path
 import sys

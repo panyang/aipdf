@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 AIPDF contributors
 """The UI and engine share this capability catalogue and option defaults."""
 import json
 from pathlib import Path

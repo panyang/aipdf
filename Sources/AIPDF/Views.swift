@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (C) 2026 AIPDF contributors
 import SwiftUI
 import AppKit
 import UniformTypeIdentifiers
@@ -456,6 +458,15 @@ struct SettingsView: View {
             if model.health["office"] != true { Link("下载 LibreOffice",destination:URL(string:"https://www.libreoffice.org/download/download-libreoffice/")!) }
             HStack { Button("重新检测") { model.refreshHealth() }; Spacer(); Text("AIPDF 0.1 · macOS 14+").font(.system(size:10)).foregroundStyle(Color.muted) }
             Divider()
+            HStack {
+                Button("许可与第三方声明") {
+                    let legal = Bundle.main.resourceURL?.appendingPathComponent("Legal")
+                    NSWorkspace.shared.open(legal ?? AppPaths.project.appendingPathComponent("NOTICE"))
+                }
+                Spacer()
+                Link("项目源码", destination: URL(string:"https://github.com/panyang/aipdf")!)
+            }.font(.system(size:11))
+            Text("AGPL-3.0-only · 无担保，按许可条款使用与分发").font(.system(size:10)).foregroundStyle(Color.muted)
             Text("本地签名为可视签名；复杂 Office 转换可能改变版式。当前应用依赖项目内的本地运行环境，移动到其他电脑前需重新构建。").font(.system(size:10)).foregroundStyle(Color.muted).lineSpacing(4)
         }.padding(28).frame(width:580).foregroundStyle(Color.ink).preferredColorScheme(.light)
     }

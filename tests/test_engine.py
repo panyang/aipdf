@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 AIPDF contributors
 """Behavioral acceptance tests against real files; no user documents are used."""
 import hashlib
 import io
