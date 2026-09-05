@@ -467,7 +467,7 @@ struct SettingsView: View {
                 Link("项目源码", destination: URL(string:"https://github.com/panyang/aipdf")!)
             }.font(.system(size:11))
             Text("AGPL-3.0-only · 无担保，按许可条款使用与分发").font(.system(size:10)).foregroundStyle(Color.muted)
-            Text("本地签名为可视签名；复杂 Office 转换可能改变版式。当前应用依赖项目内的本地运行环境，移动到其他电脑前需重新构建。").font(.system(size:10)).foregroundStyle(Color.muted).lineSpacing(4)
+            Text(AppPaths.isInstalled ? "运行环境保存在当前用户的 AIPDF 数据目录，可删除下载的源码；请保留用于安装的 Python。换电脑或用户后需要重新运行安装脚本。" : "开发构建依赖项目内的运行环境。双击源码目录中的 Install.command，可安装为不依赖源码目录的版本。").font(.system(size:10)).foregroundStyle(Color.muted).lineSpacing(4)
         }.padding(28).frame(width:580).foregroundStyle(Color.ink).preferredColorScheme(.light)
     }
     private func statusRow(_ title:String,detail:String,ready:Bool)->some View {

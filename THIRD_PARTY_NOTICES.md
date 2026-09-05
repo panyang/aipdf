@@ -45,6 +45,6 @@
 
 ## 说明与来源
 
-当前 `.app` 只携带本项目可执行文件、处理代码和许可材料，Python 依赖仍在用户的项目环境中。随附许可快照是为了保留归属并方便核查，不表示已经分发这些二进制，也不是完整的软件物料清单或法律合规认证。
+当前 `.app` 只携带本项目可执行文件、处理代码和许可材料。开发构建的 Python 依赖在项目 `.venv` 中；`Install.command` 安装版的依赖在当前用户的 AIPDF/Runtimes 中，安装版收集实际安装的 wheel 的许可，不改写仓库快照。随附许可材料用于保留归属并方便核查，不表示 `.app` 已经打包这些二进制，也不是完整的软件物料清单或法律合规认证。
 
 iLovePDF 仅作为需求研究参照；AIPDF 不包含其网站源代码、商标图标或认证材料，也没有得到其背书。[PyMuPDF 官方许可说明](https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright)列明了 AGPL 与商业许可两种选择。

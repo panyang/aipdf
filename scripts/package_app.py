@@ -8,11 +8,24 @@ import subprocess
 import os
 import json
 import sys
+import argparse
+import re
+from collect_licenses import collect
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
-subprocess.run([sys.executable, str(ROOT / "scripts/collect_licenses.py"), "--check"], check=True)
-APP = ROOT / "dist/AIPDF.app"
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--runtime-id", help="Use an environment in the current user's AIPDF/Runtimes directory")
+parser.add_argument("--output", type=Path, default=ROOT / "dist/AIPDF.app")
+parser.add_argument("--binary-dir", type=Path, default=ROOT / ".build/release")
+args = parser.parse_args()
+if args.runtime_id and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", args.runtime_id):
+    parser.error("Invalid runtime identifier")
+if args.runtime_id:
+    installed_manifest, installed_notices = collect()
+else:
+    subprocess.run([sys.executable, str(ROOT / "scripts/collect_licenses.py"), "--check"], check=True)
+APP = args.output.expanduser().absolute()
 MACOS = APP / "Contents/MacOS"
 RESOURCES = APP / "Contents/Resources"
 MACOS.mkdir(parents=True, exist_ok=True)
@@ -24,9 +37,9 @@ def replace_executable(source, destination):
     os.replace(staged, destination)
 
 
-replace_executable(ROOT / ".build/release/AIPDF", MACOS / "AIPDF")
-replace_executable(ROOT / ".build/release/VisionHelper", RESOURCES / "VisionHelper")
-replace_executable(ROOT / ".build/release/WebHelper", RESOURCES / "WebHelper")
+replace_executable(args.binary_dir / "AIPDF", MACOS / "AIPDF")
+replace_executable(args.binary_dir / "VisionHelper", RESOURCES / "VisionHelper")
+replace_executable(args.binary_dir / "WebHelper", RESOURCES / "WebHelper")
 (RESOURCES / "backend").mkdir(exist_ok=True)
 for name in ("engine.py", "catalog.py", "catalog.json"):
     shutil.copy2(ROOT / "backend" / name, RESOURCES / "backend" / name)
@@ -36,7 +49,15 @@ for name in ("LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md", "SECURITY.md", "docs
     target = legal / name
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / name, target)
-shutil.copytree(ROOT / "licenses", legal / "licenses", dirs_exist_ok=True)
+if args.runtime_id:
+    notices_root = legal / "licenses/third-party"
+    for name, data in installed_notices.items():
+        target = notices_root / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+    (notices_root / "manifest.json").write_text(json.dumps(installed_manifest, ensure_ascii=False, indent=2) + "\n")
+else:
+    shutil.copytree(ROOT / "licenses", legal / "licenses", dirs_exist_ok=True)
 try:
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, stderr=subprocess.DEVNULL).decode().strip()
     dirty = bool(subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=normal"], cwd=ROOT).strip())
@@ -45,7 +66,7 @@ except (OSError, subprocess.CalledProcessError):
 source_info = {
     "repository": "https://github.com/panyang/aipdf", "revision": revision,
     "working_tree_has_uncommitted_changes": dirty,
-    "project_license": "AGPL-3.0-only", "build_kind": "local-development",
+    "project_license": "AGPL-3.0-only", "build_kind": "user-install" if args.runtime_id else "local-development",
     "source_notice": "Distributors must provide the corresponding source for the actual build. A private repository or a commit omitting local changes is insufficient.",
 }
 (legal / "SOURCE_INFO.json").write_text(json.dumps(source_info, ensure_ascii=False, indent=2) + "\n")
@@ -75,10 +96,14 @@ info = {
     "CFBundleVersion": "1", "CFBundleShortVersionString": "0.1.0", "CFBundleExecutable": "AIPDF",
     "CFBundlePackageType": "APPL", "LSMinimumSystemVersion": "14.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Copyright © 2026 AIPDF contributors. AGPL-3.0-only.",
-    "CFBundleIconFile": "AppIcon", "AIPDFProjectPath": str(ROOT),
+    "CFBundleIconFile": "AppIcon",
     "CFBundleDocumentTypes": [{"CFBundleTypeName": "PDF document", "LSItemContentTypes": ["com.adobe.pdf"],
                                "CFBundleTypeRole": "Viewer", "LSHandlerRank": "Alternate"}],
 }
+if args.runtime_id:
+    info["AIPDFRuntimeID"] = args.runtime_id
+else:
+    info["AIPDFProjectPath"] = str(ROOT)
 with (APP / "Contents/Info.plist").open("wb") as stream:
     plistlib.dump(info, stream)
 subprocess.run(["/usr/bin/codesign", "--force", "--deep", "--sign", "-", str(APP)], check=True)

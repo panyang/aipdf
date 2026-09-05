@@ -81,8 +81,13 @@ extension Color {
 }
 
 enum AppPaths {
+    static var userSupport: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("AIPDF", isDirectory: true)
+    }
+    static var isInstalled: Bool { Bundle.main.object(forInfoDictionaryKey: "AIPDFRuntimeID") != nil }
     static var project: URL {
         if let value = Bundle.main.object(forInfoDictionaryKey: "AIPDFProjectPath") as? String { return URL(fileURLWithPath: value) }
+        if isInstalled { return userSupport }
         return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     }
     static var backend: URL {
@@ -91,14 +96,21 @@ enum AppPaths {
         }
         return project.appendingPathComponent("backend")
     }
-    static var python: URL { project.appendingPathComponent(".venv/bin/python") }
+    static var python: URL {
+        if isInstalled {
+            let id = Bundle.main.object(forInfoDictionaryKey: "AIPDFRuntimeID") as? String ?? ""
+            let safe = id.range(of: "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$", options: .regularExpression) != nil
+            return userSupport.appendingPathComponent("Runtimes").appendingPathComponent(safe ? id : "unavailable").appendingPathComponent("bin/python")
+        }
+        return project.appendingPathComponent(".venv/bin/python")
+    }
     static var support: URL {
         if CommandLine.arguments.contains("--snapshot") || CommandLine.arguments.contains("--test-result") {
             let temp=project.appendingPathComponent("tmp/app-state",isDirectory:true)
             try? FileManager.default.createDirectory(at:temp,withIntermediateDirectories:true)
             return temp
         }
-        let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("AIPDF", isDirectory: true)
+        let root = userSupport
         try? FileManager.default.createDirectory(at: root, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
         return root
     }
@@ -120,6 +132,9 @@ final class Worker: @unchecked Sendable {
     }
 
     func call(_ request: [String: Any], progress: @escaping (String, Double) -> Void = { _, _ in }) throws -> [String: Any] {
+        guard FileManager.default.isExecutableFile(atPath: AppPaths.python.path) else {
+            throw NSError(domain: "AIPDF", code: 3, userInfo: [NSLocalizedDescriptionKey: "本地运行环境缺失。请重新下载源码并双击 Install.command 修复安装。"])
+        }
         let p = Process()
         p.executableURL = AppPaths.python
         p.arguments = [AppPaths.backend.appendingPathComponent("engine.py").path]

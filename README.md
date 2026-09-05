@@ -4,9 +4,15 @@
 
 **这是可运行的本地初版，覆盖 32 个工具入口；不是网站全部能力的 1:1 等价替代。** 完整范围和差距见 [功能对照](docs/功能对照.md)。
 
-## 在这台 Mac 上打开
+## 下载后安装
 
-双击 `dist/AIPDF.app`。当前为本机签名构建，依赖此项目中的 `.venv`，请保留项目目录。无需启动终端服务，不需要账号。
+下载整个仓库 ZIP 并解压，双击根目录的 **[Install.command](Install.command)**。脚本会构建、安装到“应用程序”并启动；没有系统目录写权限时使用当前用户的“应用程序”。
+
+首次需要 macOS 14+、Python 3.12—3.14 和 Apple Command Line Tools。缺少组件时脚本会提示，完成后再次双击。Office 转换需要另装 LibreOffice。详细步骤、更新、修复和卸载见 **[构建与安装](docs/构建与安装.md)**。
+
+安装版的运行环境保存在用户数据目录，安装成功后可以删除下载的源码；仍需保留基础 Python。当前是源码构建安装，不是免依赖的预编译 DMG。
+
+## 使用
 
 1. 选择工具，将文件拖入窗口或点击“添加文件”。
 2. 调整右侧参数；编辑、签名、裁剪和遮盖可直接在 PDF 预览中框选位置。
@@ -28,13 +34,13 @@
 
 ## 构建与依赖
 
-要求 macOS 14+、Xcode Command Line Tools、Python 3.12+。当前已在 Apple Silicon / macOS 15.7.4 验证。
+以下为维护者的开发构建，要求 macOS 14+、Xcode Command Line Tools、Python 3.12—3.14。当前已在 Apple Silicon / macOS 15.7.4 验证。
 
 ```sh
 zsh scripts/build.sh
 ```
 
-构建脚本会创建 `.venv`、安装 `requirements.lock.txt` 中的锁定版本、编译 Swift 程序、生成并本机签名 `.app`。`requirements.txt` 描述直接依赖的约束范围。打包前会核对第三方许可快照，应用内附带许可与构建源码信息。
+开发构建脚本会创建项目 `.venv`、安装锁定版本、编译 Swift 程序，输出本机签名的 `dist/AIPDF.app`；此方式仍依赖项目目录。`requirements.txt` 描述直接依赖的约束范围。打包前会核对第三方许可快照，应用内附带许可与构建源码信息。
 
 许可快照来自当前已验证的 Apple Silicon 环境。不同平台或更换依赖版本后，如果核对失败，运行 `.venv/bin/python scripts/collect_licenses.py`，复核 `licenses/third-party/` 的变化后再构建。
 
@@ -55,7 +61,7 @@ Vision、WebKit 及 LibreOffice 需要正常的本机图形/系统服务访问�
 
 ## 重要边界
 
-- `.app` 当前依赖原项目路径和 Python 环境，不能仅复制 `.app` 就在另一台电脑运行。尚未制作自包含安装包或进行 Apple 公证。
+- `Install.command` 生成的安装版依赖当前用户运行环境及基础 Python，可删除源码；开发构建仍依赖原项目路径。两者都不能仅复制 `.app` 到另一台电脑就保证运行，尚未制作自包含安装包或进行 Apple 公证。
 - PDF 转 Word/PPT 可选择“保留外观”或“可编辑内容”；复杂版式无法保证复原。
 - 签名是手写/图片可视签名，不是证书数字签名，也没有邀请他人签署、身份认证和签署审计。
 - PDF/A 检查导出标识，但还未接入 veraPDF 的完整合规校验。

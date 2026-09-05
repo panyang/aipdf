@@ -24,13 +24,14 @@
 
 ## 构建和验证
 
-- 初次构建：`zsh scripts/build.sh`；只使用项目 `.venv`，不改系统 Python。
+- 开发构建：`zsh scripts/build.sh`，使用项目 `.venv`；用户安装：`zsh Install.command`，使用用户 AIPDF/Runtimes 下的独立环境。不得向系统 Python 安装项目包。
+- 安装逻辑修改后运行 `.venv/bin/python tests/test_installer.py`，验证替换失败回退、备份和无关应用保护；安装版不得引用下载源码的绝对路径。
 - Swift 修改：`swift build -c release --disable-sandbox --scratch-path .build --cache-path .build/cache`。
 - PDF 行为或进程逻辑修改：`.venv/bin/python tests/test_engine.py`。
 - 版面变化检查合成样例的渲染；表单同时验证字段树、Widget 值和外观；脱敏同时验证提取内容。
 - 仅文档或许可修改时做链接、许可完整性及 `git diff --check`；不要无意义地重跑全套转换。
 - 更新依赖后核对许可证，运行 `.venv/bin/python scripts/collect_licenses.py` 并检查版本与许可差异。
-- 打包前 `.venv/bin/python scripts/collect_licenses.py --check`；打包后验证许可证目录和签名。
+- 开发打包前运行许可快照 `--check`；用户安装按锁定版本收集本机实际 wheel 的许可，不修改仓库快照。打包后验证许可证目录和签名。
 - 说明实际运行了什么检查；系统服务或平台不可用时明确报告，不能把跳过当作通过。
 
 ## 公开与分发
@@ -38,6 +39,6 @@
 - 自有代码采用 `AGPL-3.0-only`，维护 `LICENSE`、`NOTICE`、`THIRD_PARTY_NOTICES.md` 和原始第三方声明。
 - 不擅自更改许可证、去掉版权声明，或把第三方组件统一标成自有许可。
 - 不将 `dist/`、`.venv/`、`.build/`、`tmp/` 和测试日志提交进仓库，不把本机缓存的工具直接打进公开包。
-- 当前 `.app` 是依赖本机路径的开发构建。发布给普通用户前遵循 `docs/分发说明.md`。
+- 区分依赖项目的开发构建和依赖用户运行环境的源码安装版。二者都不是通用发行包，发布前遵循 `docs/分发说明.md`。
 - 变更仓库可见性、发布 Release、重写历史或强制推送必须有维护者针对该操作的明确授权。
 - 完成后简要说明变更、验证结果与未解决限制。
