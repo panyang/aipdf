@@ -1,0 +1,1156 @@
+[
+  {
+    "id": "merge",
+    "name": "合并 PDF",
+    "subtitle": "把多份文件，整理成一份",
+    "category": "整理页面",
+    "icon": "square.stack.3d.up",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "按文件列表顺序合并，可用箭头调整顺序。",
+    "dependency": ""
+  },
+  {
+    "id": "split",
+    "name": "拆分 PDF",
+    "subtitle": "按范围拆分，或一页一份",
+    "category": "整理页面",
+    "icon": "scissors",
+    "fields": [
+      {
+        "key": "ranges",
+        "label": "拆分范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空逐页拆分；用分号分组，例如 1-3;4-6;7"
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "remove",
+    "name": "删除页面",
+    "subtitle": "去掉不再需要的页面",
+    "category": "整理页面",
+    "icon": "minus.square",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "必须填写要删除的页码，原文件保持不变。",
+    "dependency": ""
+  },
+  {
+    "id": "extract",
+    "name": "提取页面",
+    "subtitle": "只保留需要的内容",
+    "category": "整理页面",
+    "icon": "doc.on.doc",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "organize",
+    "name": "排列页面",
+    "subtitle": "调整顺序、重复或挑选页面",
+    "category": "整理页面",
+    "icon": "square.grid.2x2",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": false,
+    "note": "可在页面缩略图中调整顺序，或输入 3,1,2。",
+    "dependency": ""
+  },
+  {
+    "id": "scan",
+    "name": "扫描为 PDF",
+    "subtitle": "照片纠偏、增强，整理成文档",
+    "category": "整理页面",
+    "icon": "viewfinder",
+    "fields": [
+      {
+        "key": "scanMode",
+        "label": "扫描效果",
+        "value": "document",
+        "kind": "choice",
+        "choices": [
+          "document",
+          "gray",
+          "original"
+        ],
+        "help": ""
+      },
+      {
+        "key": "perspective",
+        "label": "自动识别纸张边缘",
+        "value": "true",
+        "kind": "toggle",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "jpg",
+      "jpeg",
+      "png",
+      "tif",
+      "tiff",
+      "heic",
+      "bmp"
+    ],
+    "multiple": true,
+    "note": "导入相机或 iPhone 扫描的图片；自动纠正检测到的纸张透视。",
+    "dependency": "vision"
+  },
+  {
+    "id": "compress",
+    "name": "压缩 PDF",
+    "subtitle": "减小体积，方便保存和分享",
+    "category": "优化文件",
+    "icon": "arrow.down.right.and.arrow.up.left",
+    "fields": [
+      {
+        "key": "quality",
+        "label": "压缩方式",
+        "value": "balanced",
+        "kind": "choice",
+        "choices": [
+          "lossless",
+          "balanced",
+          "small"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "无损模式保留内容；均衡和小文件模式降低图片分辨率，保留文字。已优化文件可能不会继续变小。",
+    "dependency": ""
+  },
+  {
+    "id": "repair",
+    "name": "修复 PDF",
+    "subtitle": "重建可以恢复的文档结构",
+    "category": "优化文件",
+    "icon": "wrench.and.screwdriver",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "尝试恢复可读取的内容。缺失或被覆盖的原始数据无法重建。",
+    "dependency": ""
+  },
+  {
+    "id": "ocr",
+    "name": "OCR 文字识别",
+    "subtitle": "让扫描文档可搜索、可复制",
+    "category": "优化文件",
+    "icon": "text.viewfinder",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "force",
+        "label": "同时识别已有文字的页面",
+        "value": "false",
+        "kind": "toggle",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "使用 Apple Vision 在本机识别中文和英文，保留原页外观。",
+    "dependency": "vision"
+  },
+  {
+    "id": "images_to_pdf",
+    "name": "图片转 PDF",
+    "subtitle": "把 JPG、PNG 等图片装订成册",
+    "category": "格式转换",
+    "icon": "photo.on.rectangle",
+    "fields": [
+      {
+        "key": "pageSize",
+        "label": "页面尺寸",
+        "value": "A4",
+        "kind": "choice",
+        "choices": [
+          "A4",
+          "Letter",
+          "image"
+        ],
+        "help": ""
+      },
+      {
+        "key": "orientation",
+        "label": "方向",
+        "value": "portrait",
+        "kind": "choice",
+        "choices": [
+          "portrait",
+          "landscape"
+        ],
+        "help": ""
+      },
+      {
+        "key": "margin",
+        "label": "页边距（点）",
+        "value": "24",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "jpg",
+      "jpeg",
+      "png",
+      "tif",
+      "tiff",
+      "heic",
+      "bmp"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "pdf_to_images",
+    "name": "PDF 转图片",
+    "subtitle": "逐页导出，或提取原始图片",
+    "category": "格式转换",
+    "icon": "photo.stack",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "mode",
+        "label": "导出内容",
+        "value": "pages",
+        "kind": "choice",
+        "choices": [
+          "pages",
+          "embedded"
+        ],
+        "help": ""
+      },
+      {
+        "key": "format",
+        "label": "图片格式",
+        "value": "jpg",
+        "kind": "choice",
+        "choices": [
+          "jpg",
+          "png"
+        ],
+        "help": ""
+      },
+      {
+        "key": "dpi",
+        "label": "分辨率",
+        "value": "144",
+        "kind": "choice",
+        "choices": [
+          "72",
+          "144",
+          "216",
+          "300"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "word_to_pdf",
+    "name": "Word 转 PDF",
+    "subtitle": "让文档在任何设备上保持一致",
+    "category": "格式转换",
+    "icon": "doc.text",
+    "fields": [],
+    "extensions": [
+      "doc",
+      "docx",
+      "odt",
+      "rtf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": "office"
+  },
+  {
+    "id": "ppt_to_pdf",
+    "name": "PowerPoint 转 PDF",
+    "subtitle": "把演示文稿转换为 PDF",
+    "category": "格式转换",
+    "icon": "rectangle.on.rectangle",
+    "fields": [],
+    "extensions": [
+      "ppt",
+      "pptx",
+      "odp"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": "office"
+  },
+  {
+    "id": "excel_to_pdf",
+    "name": "Excel 转 PDF",
+    "subtitle": "把工作表转换为易读的文档",
+    "category": "格式转换",
+    "icon": "tablecells",
+    "fields": [],
+    "extensions": [
+      "xls",
+      "xlsx",
+      "ods",
+      "csv"
+    ],
+    "multiple": true,
+    "note": "遵循源工作簿的打印区域、缩放及分页设置。",
+    "dependency": "office"
+  },
+  {
+    "id": "pdf_to_word",
+    "name": "PDF 转 Word",
+    "subtitle": "提取可编辑的文字、表格和图片",
+    "category": "格式转换",
+    "icon": "doc.text.below.ecg",
+    "fields": [
+      {
+        "key": "mode",
+        "label": "转换方式",
+        "value": "editable",
+        "kind": "choice",
+        "choices": [
+          "editable",
+          "visual"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "可编辑模式重新排版文字与表格；外观模式按页嵌入图片。复杂版式不保证原样还原，扫描件先运行 OCR。",
+    "dependency": ""
+  },
+  {
+    "id": "pdf_to_ppt",
+    "name": "PDF 转 PowerPoint",
+    "subtitle": "每一页都可以成为一张幻灯片",
+    "category": "格式转换",
+    "icon": "play.rectangle",
+    "fields": [
+      {
+        "key": "mode",
+        "label": "转换方式",
+        "value": "visual",
+        "kind": "choice",
+        "choices": [
+          "visual",
+          "editable"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "外观模式保留页面图像；可编辑模式重建文本框并保留页面图片，复杂图形可能不完整。",
+    "dependency": ""
+  },
+  {
+    "id": "pdf_to_excel",
+    "name": "PDF 转 Excel",
+    "subtitle": "把表格数据带入电子表格",
+    "category": "格式转换",
+    "icon": "tablecells.badge.ellipsis",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "按检测到的表格分别建表；没有表格时导出逐行文本。扫描件先运行 OCR。",
+    "dependency": ""
+  },
+  {
+    "id": "html_to_pdf",
+    "name": "HTML 转 PDF",
+    "subtitle": "将本地 HTML 或网页保存为 PDF",
+    "category": "格式转换",
+    "icon": "chevron.left.forwardslash.chevron.right",
+    "fields": [
+      {
+        "key": "url",
+        "label": "网页地址（可选）",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "填写网址后优先转换网页，无需添加文件。"
+      }
+    ],
+    "extensions": [
+      "html",
+      "htm"
+    ],
+    "multiple": true,
+    "note": "本地 HTML 支持基础 CSS；填写网址时使用系统 WebKit 联网加载网页（含页面脚本与资源），不上传本地文件。长网页按 A4 分页，可能切开跨页元素。",
+    "dependency": ""
+  },
+  {
+    "id": "pdfa",
+    "name": "PDF 转 PDF/A",
+    "subtitle": "生成适合长期保存的文档",
+    "category": "格式转换",
+    "icon": "archivebox",
+    "fields": [
+      {
+        "key": "pdfaLevel",
+        "label": "归档格式",
+        "value": "2b",
+        "kind": "choice",
+        "choices": [
+          "1b",
+          "2b",
+          "3b"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "经 LibreOffice Draw 导出 PDF/A，版式可能变化。正式归档前应使用 veraPDF 独立验证。",
+    "dependency": "office"
+  },
+  {
+    "id": "rotate",
+    "name": "旋转 PDF",
+    "subtitle": "轻松纠正页面方向",
+    "category": "编辑内容",
+    "icon": "rotate.right",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "angle",
+        "label": "顺时针旋转",
+        "value": "90",
+        "kind": "choice",
+        "choices": [
+          "90",
+          "180",
+          "270"
+        ],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "numbers",
+    "name": "添加页码",
+    "subtitle": "为长文档加上清晰的页码",
+    "category": "编辑内容",
+    "icon": "number.square",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "format",
+        "label": "页码格式",
+        "value": "{n} / {total}",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "start",
+        "label": "起始编号",
+        "value": "1",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "position",
+        "label": "位置",
+        "value": "bottom-center",
+        "kind": "choice",
+        "choices": [
+          "top-left",
+          "top-center",
+          "top-right",
+          "center",
+          "bottom-left",
+          "bottom-center",
+          "bottom-right"
+        ],
+        "help": ""
+      },
+      {
+        "key": "fontsize",
+        "label": "字号",
+        "value": "11",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "watermark",
+    "name": "添加水印",
+    "subtitle": "用文字或图片标记文档",
+    "category": "编辑内容",
+    "icon": "drop",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "text",
+        "label": "水印文字",
+        "value": "内部资料",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "image",
+        "label": "图片水印（可选）",
+        "value": "",
+        "kind": "file",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "position",
+        "label": "位置",
+        "value": "bottom-center",
+        "kind": "choice",
+        "choices": [
+          "top-left",
+          "top-center",
+          "top-right",
+          "center",
+          "bottom-left",
+          "bottom-center",
+          "bottom-right"
+        ],
+        "help": ""
+      },
+      {
+        "key": "opacity",
+        "label": "不透明度（0—1）",
+        "value": "0.2",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "fontsize",
+        "label": "字号",
+        "value": "42",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "",
+    "dependency": ""
+  },
+  {
+    "id": "crop",
+    "name": "裁剪 PDF",
+    "subtitle": "保留页面中最重要的区域",
+    "category": "编辑内容",
+    "icon": "crop",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "x",
+        "label": "左边距（点）",
+        "value": "48",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "y",
+        "label": "上边距（点）",
+        "value": "72",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "width",
+        "label": "宽度（点）",
+        "value": "240",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "height",
+        "label": "高度（点）",
+        "value": "64",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "在预览页中拖出裁剪框，或输入从左上角起的坐标；1 点 = 1/72 英寸。",
+    "dependency": ""
+  },
+  {
+    "id": "edit",
+    "name": "编辑 PDF",
+    "subtitle": "添加文字、图片、形状和标注",
+    "category": "编辑内容",
+    "icon": "pencil.tip.crop.circle",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "mode",
+        "label": "编辑方式",
+        "value": "text",
+        "kind": "choice",
+        "choices": [
+          "text",
+          "image",
+          "rectangle",
+          "highlight",
+          "ink"
+        ],
+        "help": ""
+      },
+      {
+        "key": "text",
+        "label": "文字内容",
+        "value": "",
+        "kind": "textarea",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "image",
+        "label": "图片文件",
+        "value": "",
+        "kind": "file",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "fontsize",
+        "label": "字号",
+        "value": "18",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "color",
+        "label": "颜色",
+        "value": "#3159D9",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "x",
+        "label": "左边距（点）",
+        "value": "48",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "y",
+        "label": "上边距（点）",
+        "value": "72",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "width",
+        "label": "宽度（点）",
+        "value": "240",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "height",
+        "label": "高度（点）",
+        "value": "64",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "在预览中框选位置。每次导出后可继续编辑结果。文字覆盖添加，不修改原始文字段落。",
+    "dependency": ""
+  },
+  {
+    "id": "forms",
+    "name": "PDF 表单",
+    "subtitle": "创建交互字段、读取和填写表单",
+    "category": "编辑内容",
+    "icon": "checklist",
+    "fields": [
+      {
+        "key": "formMode",
+        "label": "操作",
+        "value": "fill",
+        "kind": "choice",
+        "choices": [
+          "fill",
+          "create"
+        ],
+        "help": ""
+      },
+      {
+        "key": "fieldName",
+        "label": "新字段名称",
+        "value": "name",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "fieldType",
+        "label": "字段类型",
+        "value": "text",
+        "kind": "choice",
+        "choices": [
+          "text",
+          "checkbox",
+          "list",
+          "radio"
+        ],
+        "help": ""
+      },
+      {
+        "key": "fieldValue",
+        "label": "新字段默认值",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "choices",
+        "label": "选项（每行一个）",
+        "value": "选项一\n选项二",
+        "kind": "textarea",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "x",
+        "label": "左边距（点）",
+        "value": "48",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "y",
+        "label": "上边距（点）",
+        "value": "72",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "width",
+        "label": "宽度（点）",
+        "value": "240",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "height",
+        "label": "高度（点）",
+        "value": "64",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": false,
+    "note": "导入文件后自动读取字段。填写保留交互性；新建模式在框选位置创建字段。",
+    "dependency": ""
+  },
+  {
+    "id": "unlock",
+    "name": "PDF 解锁",
+    "subtitle": "使用已知密码移除文档保护",
+    "category": "安全保护",
+    "icon": "lock.open",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "在下方输入原文件密码。不尝试破解未知密码。",
+    "dependency": ""
+  },
+  {
+    "id": "protect",
+    "name": "PDF 加密",
+    "subtitle": "为重要文件设置打开密码",
+    "category": "安全保护",
+    "icon": "lock.shield",
+    "fields": [
+      {
+        "key": "newPassword",
+        "label": "新密码",
+        "value": "",
+        "kind": "secret",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "allowPrint",
+        "label": "允许打印",
+        "value": "true",
+        "kind": "toggle",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "allowCopy",
+        "label": "允许复制",
+        "value": "false",
+        "kind": "toggle",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "使用 AES-256 加密。部分阅读器可能忽略打印、复制权限。",
+    "dependency": ""
+  },
+  {
+    "id": "sign",
+    "name": "PDF 签名",
+    "subtitle": "手写、输入姓名或放置签名图片",
+    "category": "安全保护",
+    "icon": "signature",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "text",
+        "label": "签名姓名（可选）",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "image",
+        "label": "签名图片（可选）",
+        "value": "",
+        "kind": "file",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "x",
+        "label": "左边距（点）",
+        "value": "48",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "y",
+        "label": "上边距（点）",
+        "value": "72",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "width",
+        "label": "宽度（点）",
+        "value": "240",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "height",
+        "label": "高度（点）",
+        "value": "64",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "在签名板上书写，然后在预览中框选位置。属于可视签名，不是证书数字签名或远程签署服务。",
+    "dependency": ""
+  },
+  {
+    "id": "redact",
+    "name": "永久遮盖",
+    "subtitle": "从导出文件中移除敏感内容",
+    "category": "安全保护",
+    "icon": "rectangle.fill",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      },
+      {
+        "key": "text",
+        "label": "匹配文字（可选，每行一项）",
+        "value": "",
+        "kind": "textarea",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "x",
+        "label": "左边距（点）",
+        "value": "48",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "y",
+        "label": "上边距（点）",
+        "value": "72",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "width",
+        "label": "宽度（点）",
+        "value": "240",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      },
+      {
+        "key": "height",
+        "label": "高度（点）",
+        "value": "64",
+        "kind": "number",
+        "choices": [],
+        "help": ""
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "按关键词或框选区域删除文字、图片和图形；导出时清理元数据、附件、批注和表单。请复核结果。",
+    "dependency": ""
+  },
+  {
+    "id": "compare",
+    "name": "比较 PDF",
+    "subtitle": "并排看版本，突出视觉和文字差异",
+    "category": "安全保护",
+    "icon": "square.split.2x1",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "选择两份 PDF，导出逐页视觉对比 PDF 和文字差异 HTML。按页序比较，不自动对齐插入页。",
+    "dependency": ""
+  },
+  {
+    "id": "markdown",
+    "name": "PDF 转 Markdown",
+    "subtitle": "把文档转换为可复用的笔记",
+    "category": "格式转换",
+    "icon": "text.alignleft",
+    "fields": [
+      {
+        "key": "pages",
+        "label": "页面范围",
+        "value": "",
+        "kind": "text",
+        "choices": [],
+        "help": "留空为全部；例如 1-3,5。排列页面时按输入顺序处理。"
+      }
+    ],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "提取文字、标题、链接、表格和图片；复杂阅读顺序可能需要整理。",
+    "dependency": ""
+  },
+  {
+    "id": "workflow",
+    "name": "工作流程",
+    "subtitle": "保存常用步骤，一次完成处理",
+    "category": "工作流程",
+    "icon": "arrow.triangle.branch",
+    "fields": [],
+    "extensions": [
+      "pdf"
+    ],
+    "multiple": true,
+    "note": "把多个 PDF 操作按顺序串联，并保存为本机预设；每一步均保留输出副本。",
+    "dependency": ""
+  }
+]
